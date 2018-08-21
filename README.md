@@ -58,6 +58,21 @@ if (targetH == 0) {
 int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 ```
 
+#### Firebase Read/Write Errors
+If you see an error about Firebase read/write permissions you may need to
+navigate to the Firebase console, go to Storage, go to Rules and configure the
+rules so it returns true for read and write, like below:
+
+```js
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true; //request.auth != null;
+    }
+  }
+}
+```
+
 ## Submission Instructions
 * Work in a fork of this repository
 * Work in a branch on your fork
